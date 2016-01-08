@@ -30,7 +30,7 @@ def unique_houses(filename):
 
     return houses
 
-unique_houses("cohort_data.txt")
+# unique_houses("cohort_data.txt")
 
 
 def sort_by_cohort(filename):
@@ -44,16 +44,37 @@ def sort_by_cohort(filename):
 
     """
 
-    all_students = []
-    winter_15 = []
+    all_students = set()
+    winter_15 = set()
     spring_15 = []
     summer_15 = []
     tas = []
 
     # Code goes here
+    cohort_data = open(filename)   
 
+    for line in cohort_data:
+        line = line.rstrip()
+        tokens = line.split("|")
+
+        # first_name, last_name, house, advisor, cohort = tokens
+
+        if tokens[4] != 'I':
+            all_students.add(tokens[4])
+
+        if tokens[4] == "Winter 2015":
+            winter_15.add(tokens[0] + " " + tokens[1])
+
+
+    winter_15 = list(winter_15)
+    winter_15 = sorted(winter_15)
+    
+    all_students = list(all_students)
+
+    print winter_15, all_students
     return all_students
 
+sort_by_cohort('cohort_data.txt')
 
 def students_by_house(filename):
     """TODO: Sort students by house.
