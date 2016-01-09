@@ -46,9 +46,9 @@ def sort_by_cohort(filename):
 
     all_students = set()
     winter_15 = set()
-    spring_15 = []
-    summer_15 = []
-    tas = []
+    spring_15 = set()
+    summer_15 = set()
+    tas = set()
 
     # Code goes here
     cohort_data = open(filename)   
@@ -62,17 +62,34 @@ def sort_by_cohort(filename):
         if tokens[4] != 'I':
             all_students.add(tokens[4])
 
-        if tokens[4] == "Winter 2015":
-            winter_15.add(tokens[0] + " " + tokens[1])
+            if tokens[4] == "Winter 2015":
+                winter_15.add(tokens[0] + " " + tokens[1])
 
+            elif tokens[4] == "Spring 2015":
+                spring_15.add(tokens[0] + " " + tokens[1])
+        
+            elif tokens[4] == "Summer 2015":
+                summer_15.add(tokens[0] + " " + tokens[1])
+
+            elif tokens[4] == "TA":
+                tas.add(tokens[0] + " " + tokens[1])
 
     winter_15 = list(winter_15)
     winter_15 = sorted(winter_15)
-    
+
+    spring_15 = list(spring_15)
+    spring_15 = sorted(spring_15)
+
+    summer_15 = list(summer_15)
+    summer_15 = sorted(summer_15)
+
+    tas = list(tas)
+    tas = sorted(tas)
+
     all_students = list(all_students)
 
-    print winter_15, all_students
-    return all_students
+    return [all_students, winter_15, spring_15, summer_15, tas]
+# come back and see if we an create the cohorts with iteration before(or at the same time as) populating the cohort lists 
 
 sort_by_cohort('cohort_data.txt')
 
