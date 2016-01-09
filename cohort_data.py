@@ -113,7 +113,7 @@ def students_by_house(filename):
             ]
     """
 
-    all_students = []
+    all_students = set()
     gryffindor = []
     hufflepuff = []
     slytherin = []
@@ -124,9 +124,23 @@ def students_by_house(filename):
     instructors = []
 
     # Code goes here
+    cohort_data = open(filename)   
 
-    return all_students
+    for line in cohort_data:
+        line = line.rstrip()
+        tokens = line.split("|")
 
+        if tokens[2] != '':
+
+            if tokens[4] == "I":
+                all_students.add("Instructors")
+
+            elif tokens[4] == "TA":
+                all_students.add("TAs")
+
+    print all_students
+
+students_by_house('cohort_data.txt')
 
 def all_students_tuple_list(filename):
     """TODO: Create a list of tuples of student data.
